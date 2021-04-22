@@ -1,5 +1,10 @@
 // import { ADD_CONTACT, REMOVE_CONTACT, FILTER_CHANGE } from './actionTypes.js';
-import { addContact, removeContact, filterChange } from './phonebookActions.js';
+import {
+  addContact,
+  removeContact,
+  filterChange,
+  getContact,
+} from './phonebookActions.js';
 import { createReducer } from '@reduxjs/toolkit';
 
 const getStorageContacts = JSON.parse(localStorage.getItem('contacts')) || [
@@ -41,10 +46,12 @@ const initialState = {
 const addContactFn = (state, action) => [...state, action.payload];
 const removeContactFn = (state, action) =>
   state.filter(item => item.id !== action.payload);
+const getContactFn = (state, { payload }) => payload;
 
 const contactsReducer = createReducer(initialState.contacts, {
   [addContact]: addContactFn,
   [removeContact]: removeContactFn,
+  [getContact]: getContactFn,
 });
 
 const filterReducer = createReducer(initialState.filter, {

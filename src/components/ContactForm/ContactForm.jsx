@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addContact } from '../redux/phonebook/phonebookActions';
+import { addContact } from '../../redux/phonebook/phonebookActions';
 
 class ContactForm extends Component {
   state = {
     name: '',
     number: '',
+    isExists: false,
   };
 
   handleChange = e => {
@@ -15,14 +16,21 @@ class ContactForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { name, number } = this.state;
-    const { addContact } = this.props;
+    const { contacts, addContact } = this.props;
 
-    addContact(name, number);
-    this.setState({ name: '', number: '' });
+    const isExists = contacts.find(contact => contact.name === name);
+
+    if (isExists) {
+      this.setState({ isExists: true });
+    } else {
+      addContact(name, number);
+      this.setState({ name: '', number: '' });
+    }
+    setTimeout(() => this.setState({ isExists: false }), 1500);
   };
 
   render() {
-    const { name, number } = this.state;
+    const { name, number, isExists } = this.state;
     return (
       <>
         <form action="submit" onSubmit={this.handleSubmit} className="form">
@@ -48,13 +56,18 @@ class ContactForm extends Component {
           />
           <input type="submit" value="Add Contact" className="btn_form" />
         </form>
+        {isExists && <h2>Contact already exists! </h2>}
       </>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  contacts: state.contacts,
+});
+
 const mapDispatchToProps = {
   addContact,
 };
 
-export default connect(null, mapDispatchToProps)(ContactForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);

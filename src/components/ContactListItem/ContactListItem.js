@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { removeContact } from '../redux/phonebook/phonebookActions';
+import { removeContact } from '../../redux/phonebook/phonebookActions';
 
 const ContactListItem = ({ contact, removeContact }) => {
   return (

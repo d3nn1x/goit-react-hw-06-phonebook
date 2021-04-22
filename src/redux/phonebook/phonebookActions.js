@@ -1,4 +1,4 @@
-// import { ADD_CONTACT, REMOVE_CONTACT, FILTER_CHANGE } from './actionTypes.js';
+// import { ADD_CONTACT, REMOVE_CONTACT, FILTER_CHANGE, GET_CONTACT } from './actionTypes.js';
 import { v4 as uuidv4 } from 'uuid';
 import { createAction } from '@reduxjs/toolkit';
 
@@ -27,6 +27,8 @@ import { createAction } from '@reduxjs/toolkit';
 //   },
 // });
 
+const getContact = createAction('GET_CONTACT');
+
 const addContact = createAction('ADD_CONTACT', (name, number) => ({
   payload: {
     id: uuidv4(),
@@ -38,4 +40,4 @@ const addContact = createAction('ADD_CONTACT', (name, number) => ({
 const removeContact = createAction('REMOVE_CONTACT');
 const filterChange = createAction('FILTER_CHANGE');
 
-export { addContact, removeContact, filterChange };
+export { addContact, removeContact, filterChange, getContact };

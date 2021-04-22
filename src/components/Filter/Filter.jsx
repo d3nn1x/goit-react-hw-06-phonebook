@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { filterChange } from '../redux/phonebook/phonebookActions';
+import { filterChange } from '../../redux/phonebook/phonebookActions';
 
 class Filter extends Component {
   state = {

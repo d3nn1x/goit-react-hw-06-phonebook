@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getContact } from '../../redux/phonebook/phonebookActions';
 
 import ContactListItem from '../ContactListItem/ContactListItem';
 
 class ContactList extends Component {
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.contacts !== this.props.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.props.contacts));
+    if (prevProps.stateContacts !== this.props.stateContacts) {
+      localStorage.setItem(
+        'contacts',
+        JSON.stringify(this.props.stateContacts),
+      );
     }
   }
 
@@ -30,7 +34,12 @@ const mapStateToProps = state => {
 
   return {
     contacts: visibleContacts,
+    stateContacts: state.contacts,
   };
 };
 
-export default connect(mapStateToProps)(ContactList);
+const mapDispatchToProps = {
+  getContact,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
